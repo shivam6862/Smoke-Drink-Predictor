@@ -1,1 +1,11 @@
 data
+backend/__pycache__
+backend/env
+backend/uploads
+backend/data.csv
+frontend/.next
+frontend/node_modules
+frontend/package-lock.json
+backend/requirements.txt
+backend
+frontend
