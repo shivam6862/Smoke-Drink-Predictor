@@ -9,3 +9,5 @@ frontend/package-lock.json
 backend/requirements.txt
 backend
 frontend
+env
+smoking_driking.csv
