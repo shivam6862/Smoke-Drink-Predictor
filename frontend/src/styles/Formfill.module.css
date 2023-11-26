@@ -1,0 +1,138 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+}
+.hack-details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hack-details > h1 {
+  color: var(--Text);
+  font-size: 24px;
+  font-weight: 500;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #03f;
+}
+.predictor-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem;
+}
+.predictor-form-subpart > h3 {
+  color: var(--Text);
+  font-size: 20px;
+  font-weight: 500;
+}
+.predictor-form-subpart {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.predictor-form-subpart-items {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-around;
+  align-items: center;
+}
+.input-field-container,
+.warning {
+  display: flex;
+  flex-direction: column;
+  border: 0.5px solid rgba(0, 0, 0, 0.6);
+  padding: 18px 20px;
+  border-radius: 8px;
+  min-width: 310px;
+}
+.input-field-container > label,
+.warning > label {
+  color: #03f;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+}
+.input-field-container > input,
+.warning > input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 400;
+  color: #202020;
+}
+.btn-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 2rem;
+}
+.next-btn {
+  border-radius: 16px;
+  border: 0.5px solid #03f;
+  padding: 16px 40px;
+  background-color: var(--blue-blue, #03f);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+@media (max-width: 768px) {
+  .predictor-form {
+    padding: 1rem;
+  }
+  .predictor-form-subpart {
+    gap: 0.5rem;
+  }
+  .predictor-form-subpart-items {
+    gap: 0.5rem;
+  }
+  .input-field-container,
+  .warning {
+    padding: 12px 16px;
+    min-width: 250px;
+  }
+  .input-field-container > label,
+  .warning > label {
+    font-size: 16px;
+  }
+  .input-field-container > input,
+  .warning > input {
+    font-size: 14px;
+  }
+  .btn-group {
+    padding: 1rem;
+  }
+  .next-btn {
+    padding: 12px 24px;
+    font-size: 14px;
+    border-radius: 8px;
+  }
+  .input-field-container,
+  .warning {
+    min-width: 250px;
+  }
+}
+@media (max-width: 610px) {
+  .predictor-form-subpart-items {
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .input-field-container,
+  .warning {
+    width: 100%;
+  }
+}
+.warning {
+  border: 0.5px solid rgba(240, 17, 17, 0.6);
+}
+.warning > label {
+  color: rgba(248, 8, 8, 0.6);
+}

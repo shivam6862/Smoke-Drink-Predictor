@@ -1,0 +1,41 @@
+[
+  {
+    "section": "Personal Information",
+    "fields": [
+      { "label": "Sex (Male: 1, Female: 0)", "id": "sex" },
+      { "label": "Age", "id": "age" },
+      { "label": "Height", "id": "height" },
+      { "label": "Weight", "id": "weight" },
+      { "label": "Waistline", "id": "waistline" },
+      { "label": "Sight Left", "id": "sight_left" },
+      { "label": "Sight Right", "id": "sight_right" }
+    ]
+  },
+  {
+    "section": "Health Information",
+    "fields": [
+      { "label": "Systolic Blood Pressure (SBP)", "id": "SBP" },
+      { "label": "Diastolic Blood Pressure (DBP)", "id": "DBP" },
+      { "label": "Blood Sugar Level (BLDS)", "id": "BLDS" }
+    ]
+  },
+  {
+    "section": "Biochemical Information",
+    "fields": [
+      { "label": "Total Cholesterol", "id": "tot_chole" },
+      { "label": "HDL Cholesterol", "id": "HDL_chole" },
+      { "label": "LDL Cholesterol", "id": "LDL_chole" },
+      { "label": "Triglyceride", "id": "triglyceride" },
+      { "label": "Hemoglobin", "id": "hemoglobin" },
+      { "label": "Serum Creatinine", "id": "serum_creatinine" }
+    ]
+  },
+  {
+    "section": "Other Information",
+    "fields": [
+      { "label": "SGOT AST", "id": "SGOT_AST" },
+      { "label": "SGOT ALT", "id": "SGOT_ALT" },
+      { "label": "Gamma GTP", "id": "gamma_GTP" }
+    ]
+  }
+]
