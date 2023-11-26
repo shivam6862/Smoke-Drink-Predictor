@@ -66,4 +66,41 @@ Finally, LDL_chole – tot_chole, SGOT_ALT – SGOT_AST and sight_left – sight
 
 # METHODOLOGY
 
-After the initial analysis and reduction of parameters, we proceeded to train the model
+After the initial analysis and reduction of parameters, we proceeded to the Machine Learning Models.
+
+1. Logistic Regression
+   There are 3 types of patients in the target class (non – smokers : 1, stopped smoking: 2, smoker : 3). However, Logistic Regression is generally used for binary classification. But, in the scikit learn library, the model has been extended to include multi – class classification.
+   The model has been used in its default mode (‘auto’ for multi – class). Here is an exerpt from the documentation: “‘auto’ selects ‘ovr’ if the data is binary, or if solver=’liblinear’, and otherwise selects ‘multinomial’.”
+2. Gaussian NB
+   Naive Bayes methods are a set of supervised learning algorithms based on applying Bayes’ theorem with the “naive” assumption of conditional independence between every pair of features given the value of the class variable. More can be found here.
+3. Artificial Neural Network
+   The input size passed to the ANN was of size 16 and a fully feed – forward network with 10 dense layers with the activation function as RELU was created. The loss function used was Categorical Cross Entropy.
+
+## Snapshot
+
+### Form Page
+
+![Form Page](./PHOTO/Form.png)
+
+### Result
+
+![Result](./PHOTO/Result.png)
+
+### Models Results
+
+#### Smoking
+
+![Logistic Regression](./PHOTO/models/4.png)
+![Gaussian NB](./PHOTO/models/5.png)
+![Artificial Neural Network](./PHOTO/models/6.png)
+
+#### Drinking
+
+![Logistic Regression](./PHOTO/models/1.png)
+![Gaussian NB](./PHOTO/models/2.png)
+![Artificial Neural Network](./PHOTO/models/3.png)
+
+## REFERENCES
+
+1. [Smoking and Drinking Dataset with body signal](https://www.kaggle.com/datasets/sooyoungher/smoking-drinking-dataset)
+2. [Gaussian NB](https://scikit-learn.org/stable/modules/naive_bayes.html)

@@ -4,9 +4,8 @@ import pandas as pd
 import csv
 import os
 import sys
-from sklearn.linear_model import LinearRegression
 from sklearn.linear_model import LogisticRegression
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.naive_bayes import GaussianNB
 
 # Define the upload folder
 UPLOAD_FOLDER = 'uploads'
@@ -19,10 +18,10 @@ class Models:
     def __init__(self):
         # Initialize Linear Regression and Logistic Regression models and decision tree
         print("Initializing models...")
-        self.decisionTree_smoker = DecisionTreeClassifier()
-        self.decisionTree_drinker = DecisionTreeClassifier()
         self.logisticRegression_smoker = LogisticRegression(max_iter=2000)
         self.logisticRegression_drinker = LogisticRegression(max_iter=2000)
+        self.gaussianNB_smoker = GaussianNB()
+        self.gaussianNB_drinker = GaussianNB()
         self.scaler_smoker = StandardScaler()
         self.scaler_drinker = StandardScaler()
         print("Models initialized!")
@@ -59,12 +58,12 @@ class Models:
         print("Columns", X_train.columns)
 
         # Fit the models
-        self.decisionTree_smoker.fit(X_train, y_train_smoker)
-        self.decisionTree_drinker.fit(X_train, y_train_drinker)
-        print("Worked till fit decision tree")
         self.logisticRegression_smoker.fit(X_train, y_train_smoker)
         self.logisticRegression_drinker.fit(X_train, y_train_drinker)
         print("Worked till fit logistic regression")
+        self.gaussianNB_smoker.fit(X_train, y_train_smoker)
+        self.gaussianNB_drinker.fit(X_train, y_train_drinker)
+        print("Worked till fit gaussianNB")
 
         print("CSV file updated successfully.")
 
@@ -72,8 +71,6 @@ class Models:
         # Initialize Linear Regression and Logistic Regression models and decision tree
         scaler_smoker = self.scaler_smoker
         scaler_drinker = self.scaler_drinker
-        decision_tree_smoker_reg = self.decisionTree_smoker
-        decision_tree_drinker_reg = self.decisionTree_drinker
         logistic_regression_smoker_reg = self.logisticRegression_smoker
         logistic_regression_drinker_reg = self.logisticRegression_drinker
 
@@ -92,26 +89,11 @@ class Models:
             X_test)
         print("Worked till here scaler")
 
-        # Decision Tree
-        decision_tree_reg_preds_smoker = decision_tree_smoker_reg.predict_proba(
-            X_test_for_smoker)
-        decision_tree_predict_smoker_value = decision_tree_smoker_reg.predict(
-            X_test_for_smoker)
-        decision_tree_reg_preds_drinker = decision_tree_drinker_reg.predict_proba(
-            X_test_for_drinker)
-        decision_tree_predict_drinker_value = decision_tree_drinker_reg.predict(
-            X_test_for_drinker)
-        print("decision_tree_reg_preds", decision_tree_reg_preds_smoker)
-        print("decision_tree_reg_preds", decision_tree_reg_preds_drinker)
-        print("decision_tree_predict_value",
-              decision_tree_predict_smoker_value)
-        print("decision_tree_predict_value",
-              decision_tree_predict_drinker_value)
         # Logistic Regression
         logistic_regression_smoker_reg_preds = logistic_regression_smoker_reg.predict_proba(
-            X_test)
+            X_test_for_smoker)
         logistic_regression_drinker_reg_preds = logistic_regression_drinker_reg.predict_proba(
-            X_test)
+            X_test_for_drinker)
         print("logistic_regression_reg_preds",
               logistic_regression_smoker_reg_preds)
         print("logistic_regression_reg_preds",
@@ -121,20 +103,22 @@ class Models:
         print("max_index_value_smoker", max_index_value_smoker)
         print("max_index_value_drinker", max_index_value_drinker)
 
+        # Naive Bayes
+        gaussianNB_smoker_reg_preds = self.gaussianNB_smoker.predict_proba(
+            X_test)
+        gaussianNB_drinker_reg_preds = self.gaussianNB_drinker.predict_proba(
+            X_test)
+        print("gaussianNB_reg_preds", gaussianNB_smoker_reg_preds)
+        print("gaussianNB_reg_preds", gaussianNB_drinker_reg_preds)
+        max_index_value_smoker = gaussianNB_smoker_reg_preds.argmax()
+        max_index_value_drinker = gaussianNB_drinker_reg_preds.argmax()
+        print("max_index_value_smoker", max_index_value_smoker)
+        print("max_index_value_drinker", max_index_value_drinker)
+
         smoking_status = ["Never Smoked", "Former Smoker", "Current Smoker"]
         drinking_status = ["Never Drank", "Current Drinker"]
 
         predictions_df = [{
-            'Decision Tree': {
-                "smoking": {
-                    "result": smoking_status[int(float(decision_tree_predict_smoker_value[0]))-1],
-                    "probability": "class 1: " + str(decision_tree_reg_preds_smoker[0][0])+" ,class 2:"+str(decision_tree_reg_preds_smoker[0][1])+" ,class 3:"+str(decision_tree_reg_preds_smoker[0][2]),
-                },
-                "drinking": {
-                    "result": drinking_status[int(float(decision_tree_predict_drinker_value[0]))],
-                    "probability": "class 1: " + str(decision_tree_reg_preds_drinker[0][0]) + " ,class 2: " + str(decision_tree_reg_preds_drinker[0][1]),
-                },
-            },
             'Logistic Regression': {
                 "smoking": {
                     "result": smoking_status[max_index_value_smoker],
@@ -143,6 +127,16 @@ class Models:
                 "drinking": {
                     "result": drinking_status[max_index_value_drinker],
                     "probability": "class 1: " + str(logistic_regression_drinker_reg_preds[0][0]) + " ,class 2: " + str(logistic_regression_drinker_reg_preds[0][1]),
+                },
+            },
+            'Naive Bayes': {
+                "smoking": {
+                    "result": smoking_status[max_index_value_smoker],
+                    "probability": "class 1: " + str(gaussianNB_smoker_reg_preds[0][0]) + " ,class 2: " + str(gaussianNB_smoker_reg_preds[0][1]) + " ,class 3: " + str(gaussianNB_smoker_reg_preds[0][2]),
+                },
+                "drinking": {
+                    "result": drinking_status[max_index_value_drinker],
+                    "probability": "class 1: " + str(gaussianNB_drinker_reg_preds[0][0]) + " ,class 2: " + str(gaussianNB_drinker_reg_preds[0][1]),
                 },
             },
         }]
