@@ -45,6 +45,14 @@ Plotting values in each column as a parameter vs. the smoking status of a patien
 Removing Outliers
 Outliers are observations that differ considerably from other observations. Such data were removed from the dataset by deleting entries whose parameters had data points lying in the top 0.1% of the complete data. 8,433 such points were found and their removal brought down the number of entries to 6,30,472.
 
+## Measures of Central Tendency
+
+The mean, standard deviation and median of the data points for each parameter have been plotted in the figure below. The horizontal axis distinguishes smokers as ‘Never Smoked,’ ‘Former Smoker’ and ‘Current Smoker.’ We can see that all three values are more – or – less similar for all types of smokers.
+
+1. Blue: Mean
+2. Orange: Standard Deviation
+3. Green: Median
+
 ## Removing Outliers
 
 Outliers are observations that differ considerably from other observations. Such data were removed from the dataset by deleting entries whose parameters had data points lying in the top 0.1% of the complete data. 8,433 such points were found and their removal brought down the number of entries to 6,30,472.
@@ -68,13 +76,25 @@ Finally, LDL_chole – tot_chole, SGOT_ALT – SGOT_AST and sight_left – sight
 
 After the initial analysis and reduction of parameters, we proceeded to the Machine Learning Models.
 
-1. Logistic Regression
-   There are 3 types of patients in the target class (non – smokers : 1, stopped smoking: 2, smoker : 3). However, Logistic Regression is generally used for binary classification. But, in the scikit learn library, the model has been extended to include multi – class classification.
-   The model has been used in its default mode (‘auto’ for multi – class). Here is an exerpt from the documentation: “‘auto’ selects ‘ovr’ if the data is binary, or if solver=’liblinear’, and otherwise selects ‘multinomial’.”
-2. Gaussian NB
-   Naive Bayes methods are a set of supervised learning algorithms based on applying Bayes’ theorem with the “naive” assumption of conditional independence between every pair of features given the value of the class variable. More can be found here.
-3. Artificial Neural Network
-   The input size passed to the ANN was of size 16 and a fully feed – forward network with 10 dense layers with the activation function as RELU was created. The loss function used was Categorical Cross Entropy.
+## Logistic Regression
+
+Logistic Regression is justified for predicting "isDrinker" in the dataset due to its compatibility with binary outcomes. There are 3 types of patients in the target class for smokers (non – smokers : 1, stopped smoking: 2, smoker : 3). However, Logistic Regression is generally used for binary classification. But, in the scikit learn library, the model has been extended to include multi – class classification.
+The model has been used in its default mode (‘auto’ for multi – class). Here is an exerpt from the documentation: “‘auto’ selects ‘ovr’ if the data is binary, or if solver=’liblinear’, and otherwise selects ‘multinomial’.”
+
+## Gaussian NB
+
+Naive Bayes methods are a set of supervised learning algorithms based on applying Bayes’ theorem with the “naive” assumption of conditional independence between every pair of features given the value of the class variable. More can be found here. Its capacity to handle both continuous and categorical data makes it suitable for variables like age, health metrics, and lifestyle indicators. Despite the assumption of feature independence, Gaussian NB performs well, particularly with limited dependencies. Its efficiency with smaller datasets, simplicity, and interpretability make it a practical choice.
+
+## Artificial Neural Network
+
+The choice of a deep neural network with multiple hidden layers and specific activation functions (ReLU for intermediate layers and Sigmoid for the output layer) was taken for the following reasons:
+
+1.  Complex Relationships: The dataset includes various health and lifestyle features, suggesting potential complex relationships. The deep architecture allows the model to learn hierarchical and intricate patterns, capturing nuanced dependencies among predictors.
+2.  Non – linearity: ReLU (Rectified Linear Unit) is commonly used for hidden layers, introducing non-linearity essential for learning complex mappings. It enables the model to represent more intricate relationships between input features.
+3.  Layer Size Variation: Gradually increasing the number of units in hidden layers (e.g., from 16 to 256) allows the model to capture increasingly complex representations of the data, promoting feature learning at different abstraction levels.
+4.  Sigmoid Activation for Binary Classification: Using Sigmoid activation in the output layer is appropriate for binary classification tasks like predicting "is_Smoking" and "isDrinker." It squashes the output to a range between 0 and 1, representing probabilities.
+5.  Categorical Crossentropy Loss: Categorical Crossentropy loss is appropriate when dealing with categorical classification tasks. It penalizes the model based on the difference between predicted and true class probabilities.
+6.  Training and Evaluation: The model is trained for 30 epochs with a batch size of 128, and performance is evaluated on a separate test set. This ensures a balance between model training and evaluation, helping to identify potential overfitting.
 
 ## Snapshot
 
@@ -104,3 +124,4 @@ After the initial analysis and reduction of parameters, we proceeded to the Mach
 
 1. [Smoking and Drinking Dataset with body signal](https://www.kaggle.com/datasets/sooyoungher/smoking-drinking-dataset)
 2. [Gaussian NB](https://scikit-learn.org/stable/modules/naive_bayes.html)
+3. [ Github Repository](https://github.com/shivam6862/Smoke-Drink-Predictor)
